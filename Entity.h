@@ -1,7 +1,7 @@
 //******************************************************************* 
 // Game Project: Kingdom Quest
 // Date: October 7th, 2022
-// Program description: This program is an game entity inheritance h file
+// Program description: This program is a game entity inheritance h file
 //******************************************************************* 
 
 #ifndef ENTITY_H
