@@ -1,8 +1,7 @@
 //******************************************************************* 
 // Game Project: Kingdom Quest
 // Date: October 7th, 2022
-// Program description: This program tests a linked list system to 
-// keep track of a players place in a game world map.
+// Program description: This program is an game entity inheritance h file
 //******************************************************************* 
 
 #ifndef ENTITY_H
