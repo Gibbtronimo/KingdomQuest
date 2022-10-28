@@ -31,81 +31,79 @@ int d6();
 
 class Entity         // entity parent class
 {
-private:
-   int health;
-   int armorClass;
-   int attackDam;
-   int speed;
-   int id;
+	private:
+	   	int health;
+	   	int armorClass;
+   		int attackDam;
+   		int speed;
+   		int id;
 
-public:
-	Entity()   				// Default Constructor
-   { 
-       health = 0; 
-       armorClass = 0; 
-       attackDam = 0; 
-       speed = 0; 
-       id = 000; 
-       
-   }
+	public:
+	    Entity()   				// Default Constructor
+	    { 
+	       health = 0; 
+	       armorClass = 0; 
+	       attackDam = 0; 
+	       speed = 0; 
+	       id = 000; 
+	    }
 
-    Entity(int entityID)   				// Constructor
-   {
-       switch(entityID) 
-   	    {   case 004:		 // goblin
-   				health = 7; 
-    			armorClass = 10; 
-    			attackDam = d6() + 2; 
-    			speed = d20();
-    			id = entityID;
-    			break;
+        Entity(int entityID)   				// Constructor
+        {
+            switch(entityID) 
+   	        {   
+   	    	    case 004:		 // goblin
+   			    	health = 7; 
+    			    armorClass = 10; 
+    		    	attackDam = d6() + 2; 
+    	    		speed = d20();
+    	    		id = entityID;
+    	    		break;
 
-   			case 001:
-    			health = 24; 
-    			armorClass = 12; 
-    			attackDam = d8(); 
-    			speed = d20(); 
-    			id = entityID;
-   				break;
-   			case 002:
-    			health = 29; 
-    			armorClass = 10; 
-    			attackDam = d10(); 
-    			speed = d20(); 
-    			id = entityID;
-   				break;
-   			case 003:
-    			health = 16; 
-    			armorClass = 9; 
-    			attackDam = 2 * d6(); 
-    			speed = d20(); 
-    			id = entityID;
-   				break;
-   	    }
-   
-    }
-    };
-   ~Entity();  			// Destructor
-   void setHealth(int h)
-   { health = h; }
-   int getHealth()
-   { return health; }
-   void setArmorClass(int ac)
-   { armorClass = ac; }
-   int getArmorClass()
-   { return armorClass; }
-   void setSpeed(int s)
-   { speed = s; }
-   int getSpeed()
-   { return speed; }
-   void setAttackDamage(int ad)
-   { attackDam = ad; }
-   int getAttackDamage()
-   { return attackDam; }
-   void takeDamage(int dam)
-   { health -= dam; }
-   int getID()
-   { return id; }
+   		    	case 001:
+    	    		health = 24; 
+    	    		armorClass = 12; 
+        			attackDam = d8(); 
+    	    		speed = d20(); 
+    	    		id = entityID;
+   		    		break;
+   		    	case 002:
+    		    	health = 29; 
+    		    	armorClass = 10; 
+    		    	attackDam = d10(); 
+    		    	speed = d20(); 
+    		    	id = entityID;
+   			    	break;
+   			    case 003:
+    		    	health = 16; 
+    		    	armorClass = 9; 
+    	    		attackDam = 2 * d6(); 
+    	    		speed = d20(); 
+    	    		id = entityID;
+   		    		break;
+   	        }
+        }
+        ~Entity();  			// Destructor
+        void setHealth(int h)
+        { health = h; }
+        int getHealth()
+        { return health; }
+        void setArmorClass(int ac)
+        { armorClass = ac; }
+        int getArmorClass()
+        { return armorClass; }
+        void setSpeed(int s)
+        { speed = s; }
+        int getSpeed()
+       { return speed; }
+       void setAttackDamage(int ad)
+       { attackDam = ad; }
+       int getAttackDamage()
+       { return attackDam; }
+       void takeDamage(int dam)
+       { health -= dam; }
+       int getID()
+       { return id; }
 };
 
 /*
@@ -126,55 +124,57 @@ public:
 
 class Player : public Entity       // Player child class
 {
-private:
-   int level;
-   int xpScore;
-   int hitDie;
+    private:
+		int level;
+   		int xpScore;
+   		int hitDie;
 
-public:
-   Player(int entityID)             // Constructor
-   { 
-       xpScore = 0; 
-       level = 1; 
-   }
-   ~Player();           // Destructor
+	public:
+	
+   		Player():Entity(int id)           // Constructor
+   		{ 
+    	   xpScore = 0; 
+    	   level = 1; 
+   		}
+   		~Player();           // Destructor
 
-   int rollDamage(int entityID)
-   { 
-   		int damage = 0;
+   		int rollDamage(int entityID)
+   		{ 
+   			int damage = 0;
 
-   		switch(entityID) 
-   		{
-  			case 001:
-    			for(int i = 0; i < level; i++)
-    				damage += d8();
-    			return damage;
+   			switch(entityID) 
+   			{
+  				case 001:
+    				for(int i = 0; i < level; i++)
+    					damage += d8();
+    				return damage;
    
-   			case 002:
-    			for(int i = 0; i < level; i++)
-    				damage += d10();
-    			return damage;
+   				case 002:
+    				for(int i = 0; i < level; i++)
+    					damage += d10();
+    				return damage;
    				
-   			case 003:
-    			for(int i = 0; i < level*2; i++)
-    				damage += d6();
-    			return damage;
+   				case 003:
+    				for(int i = 0; i < level*2; i++)
+    					damage += d6();
+    				return damage;
+    				
+    			default:
+    			    return 0;
+  			}
   		}
-        return 0;
-  	}
-  	
-    
-   void setLevel();
-   int getLevel()
-   { return level; }
-   void setScore();
-   int getScore()
-   { return xpScore; }
-   void setHitDie();
-   int getHitDie()
-   { return hitDie; }
-   
-   
+        int getLevel()
+        { 
+            return level; 
+        }
+        int getScore()
+        { 
+            return xpScore; 
+        }
+        int getHitDie()
+        { 
+            return hitDie; 
+        }
 };
 
 /*
@@ -196,10 +196,9 @@ private:
    int enemyID;
 
 public:
-   Goblin(int id)             // Constructor
+   Goblin():Entity(int id)            // Constructor
    { 
        xpToGive = 50; 
-       enemyID = id;
    }
 
    ~Goblin();           // Destructor
