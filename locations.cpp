@@ -88,13 +88,15 @@ class Player
 
 int main()
 {
-   Player newPlayer;
-   Loc temp = newPlayer.getLocat();
-   cout << "Current area is " << temp.getName() << endl;
-   newPlayer.nextLocat();
-   newPlayer.nextLocat();
-   newPlayer.nextLocat();
-   newPlayer.nextLocat();
-   newPlayer.nextLocat();
-	return 0;
+    Player newPlayer;
+    Loc temp = newPlayer.getLocat();
+    cout << "Current area is " << temp.getName() << endl;
+    for (int i = 0; i < TOTAL_AREAS; i++)
+    {
+        for (int j = 0; j < TOTAL_LOCATIONS; j++)
+        {
+            newPlayer.nextLocat();
+        }
+    }
+    return 0;
 }
