@@ -55,6 +55,10 @@ class Player
          for(int i = 0; i < TOTAL_LOCATIONS; i++)
          {
             locations[0][i].setName("clearing" + to_string(i)); 
+            locations[1][i].setName("eastTown" + to_string(i)); 
+            locations[2][i].setName("castle" + to_string(i)); 
+            locations[3][i].setName("westTown" + to_string(i)); 
+            locations[4][i].setName("mountain" + to_string(i)); 
          }
       }
 
@@ -65,15 +69,19 @@ class Player
 
       void nextLocat()
       {
-         char resp;
-         if(currY < 4)
+         int resp;
+         if(currY < 3)
          {
-            cout << "Would you like to go to the next location? (Y/N)";
+            currY++;
+            cout << "Going to " << getLocat().getName() << endl;
+         }
+         else
+         {
+            currY = 0;
+            cout << "Which Area Would You Like to Go to Next? (1. East Town 2. Castle 3. West Town): ";
             cin >> resp;
-            if(toupper(resp) == 'Y')
-            {
-               currY++;
-            }
+            currX = resp;
+            cout << "Going to " << getLocat().getName() << endl;
          }
       }
 };
@@ -84,7 +92,9 @@ int main()
    Loc temp = newPlayer.getLocat();
    cout << "Current area is " << temp.getName() << endl;
    newPlayer.nextLocat();
-   temp = newPlayer.getLocat();
-   cout << "Current area is " << temp.getName() << endl;
+   newPlayer.nextLocat();
+   newPlayer.nextLocat();
+   newPlayer.nextLocat();
+   newPlayer.nextLocat();
 	return 0;
 }
