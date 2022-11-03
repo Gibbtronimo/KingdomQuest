@@ -6,10 +6,7 @@
 
 using namespace std;
 
-int d20();
-int d10();
-int d8();
-int d6();
+int die(int max);
 
 class Entity         // entity parent class
 {
@@ -42,32 +39,32 @@ public:
    	    	case 004:		 // goblin
    			   	health = 7; 
     			armorClass = 10; 
-    		    attackDam = d6() + 2; 
-    	    	speed = d20();
+    		    attackDam = die(6) + 2; 
+    	    	speed = die(20);
     	    	id = entityID;
     	    	break;
 
    		    case 001:
     	    	health = 24; 
     	    	armorClass = 12; 
-        		attackDam = d8(); 
-    	    	speed = d20(); 
+        		attackDam = die(8); 
+    	    	speed = die(20); 
     	    	id = entityID;
    		    	break;
 
    		    case 002:
     		    health = 29; 
     		    armorClass = 10; 
-    		    attackDam = d10(); 
-    		    speed = d20(); 
+    		    attackDam = die(10); 
+    		    speed = die(20); 
     		    id = entityID;
    			    break;
    			    
    			case 003:
     		    health = 16; 
     		    armorClass = 9; 
-    	    	attackDam = 2 * d6(); 
-    	    	speed = d20(); 
+    	    	attackDam = 2 * die(6); 
+    	    	speed = die(20); 
     	    	id = entityID;
    		    	break;
 
@@ -166,7 +163,7 @@ int Entity::getXP()
 
 int Entity::rollDamage()
 {  	
-    return d6() + 2; 
+    return die(6) + 2; 
 }
 
 int Entity::rollDamage(int entityID)
@@ -176,18 +173,18 @@ int Entity::rollDamage(int entityID)
    	switch(entityID) 
    	{
   		case 001:
-    		for(int i = 0; i < level; i++)
-    		damage += d8();
+    			for(int i = 0; i < level; i++)
+    				damage += die(8);
     		return damage;
    
    		case 002:
-    		for(int i = 0; i < level; i++)
-    		damage += d10();
+    			for(int i = 0; i < level; i++)
+    				damage += die(10);
     		return damage;
    				
    		case 003:
-    		for(int i = 0; i < level*2; i++)
-    		damage += d6();
+    			for(int i = 0; i < level*2; i++)
+    				damage += die(6);
     		return damage;
     				
     	default:
@@ -254,7 +251,7 @@ int main()
         switch(choice) 
         {
             case 1:
-                if (d20() >= enemy.getArmorClass())
+                if (die(20) >= enemy.getArmorClass())
                 {
                     dam = player.rollDamage(player.getID());
                     enemy.takeDamage(dam);
@@ -264,7 +261,7 @@ int main()
                 break;
 
             case 2:
-                if (d20() > 14)
+                if (die(20) > 14)
                     inCombat = false;
                 else
                 {
@@ -281,10 +278,10 @@ int main()
     cout << "Combat has ended!\n\n";
 }
 
-int d20()	//one of the die that is used for certain scenarios
+int die(int max)	//one of the die that is used for certain scenarios
 {
 	int die;
-	const int min = 1, max = 20;
+	const int min = 1;
 
 	unsigned seed = time(0);
 	srand(seed);
@@ -292,51 +289,6 @@ int d20()	//one of the die that is used for certain scenarios
 	die = (rand() % (max - min + 1)) + min;
 	
 	//cout << "D20: " << die << endl; // (used this to test if it worked)
-	
-	return die;
-}
-
-int d10()	//one of the die that is used for certain scenarios
-{
-	int die;
-	const int min = 1, max = 10;
-
-	unsigned seed = time(0);
-	srand(seed);
-
-	die = (rand() % (max - min + 1)) + min;
-	
-	//cout << "D10: " << die << endl; // (used this to test if it worked)
-	
-	return die;
-}
-
-int d8()	//one of the die that is used for certain scenarios
-{
-	int die;
-	const int min = 1, max = 8;
-
-	unsigned seed = time(0);
-	srand(seed);
-
-	die = (rand() % (max - min + 1)) + min;
-	
-	//cout << "D8: " << die << endl; // (used this to test if it worked)
-	
-	return die;
-}
-
-int d6()	//one of the die that is used for certain scenarios
-{
-	int die;
-	const int min = 1, max = 6;
-
-	unsigned seed = time(0);
-	srand(seed);
-
-	die = (rand() % (max - min + 1)) + min;
-	
-	//cout << "D6: " << die << endl; // (used this to test if it worked)
 	
 	return die;
 }
