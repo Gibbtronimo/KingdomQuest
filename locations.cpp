@@ -70,14 +70,12 @@ public:
 
 	int getHP() { return healthPoints; }
 
-	Loc getLocat()
-	{
-		return locations[currX][currY];
-	}
+	Loc getLocat() { return locations[currX][currY]; }
 
 	void nextLocat()
 	{
-		int resp;
+		string resp;
+      bool invalidIn = true;
 		if (currY < 3)
 		{
 			currY++;
@@ -89,31 +87,49 @@ public:
 
 			if (currX == 0) //Forest
 			{
-				cout << "Which Area Would You Like to Go to Next? (1. East Town 2. Castle 3. West Town): ";
-				cin >> resp;
-				currX = resp;
-				if (resp == 1)
-					currX = 1;
-				else if (resp == 2)
-					currX = 2;
-				else if (resp == 3)
-					currX = 3;
-				else
-					cout << "Try Again";
+            while(invalidIn)
+            {
+               cout << "Which Area Would You Like to Go to Next? (1. East Town 2. Castle 3. West Town): ";
+               cin >> resp;
+
+               if(resp.length() == 1 && isdigit(resp[0]) && stoi(resp) > 0 && stoi(resp) < 4)
+               {
+                  invalidIn = false;
+                  if (resp == "1")
+                     currX = 1;
+                  else if (resp == "2")
+                     currX = 2;
+                  else if (resp == "3")
+                     currX = 3;
+               }
+               else
+               {
+                  cout << "User Input is Invalid" << endl;
+               }
+            }
 			}
 			else if (currX == 1) //East Town
 			{
-				cout << "Which Area Would You Like to Go to Next? (1. Forest 2. Castle 3. Mountain): ";
-				cin >> resp;
-				currX = resp;
-				if (resp == 1)
-					currX = 0;
-				else if (resp == 2)
-					currX = 2;
-				else if (resp == 3)
-					currX = 4;
-				else
-					cout << "Try Again";
+            while(invalidIn)
+            {
+               cout << "Which Area Would You Like to Go to Next? (1. Forest 2. Castle 3. Mountain): ";
+               cin >> resp;
+
+               if(resp.length() == 1 && isdigit(resp[0]) && stoi(resp) > 0 && stoi(resp) < 4)
+               {
+                  invalidIn = false;
+                  if (resp == "1")
+                     currX = 0;
+                  else if (resp == "2")
+                     currX = 2;
+                  else if (resp == "3")
+                     currX = 4;
+               }
+               else
+               {
+                  cout << "User Input is Invalid" << endl;
+               }
+            }
 			}
 			else if (currX == 2) //Castle
 			{
@@ -121,31 +137,49 @@ public:
 			}
 			else if (currX == 3) //West Town
 			{
-				cout << "Which Area Would You Like to Go to Next? (1. Forest 2. Castle 3. Mountain): ";
-				cin >> resp;
-				currX = resp;
-				if (resp == 1)
-					currX = 0;
-				else if (resp == 2)
-					currX = 2;
-				else if (resp == 3)
-					currX = 4;
-				else
-					cout << "Try Again";
+            while(invalidIn)
+            {
+               cout << "Which Area Would You Like to Go to Next? (1. Forest 2. Castle 3. Mountain): ";
+               cin >> resp;
+
+               if(resp.length() == 1 && isdigit(resp[0]) && stoi(resp) > 0 && stoi(resp) < 4)
+               {
+                  invalidIn = false;
+                  if (resp == "1")
+                     currX = 0;
+                  else if (resp == "2")
+                     currX = 2;
+                  else if (resp == "3")
+                     currX = 4;
+               }
+               else
+               {
+                  cout << "User Input is Invalid" << endl;
+               }
+            }
 			}
 			else if (currX == 4) //Mountain
 			{
-				cout << "Which Area Would You Like to Go to Next? (1. East Town 2. Castle 3. West Town): ";
-				cin >> resp;
-				currX = resp;
-				if (resp == 1)
-					currX = 1;
-				else if (resp == 2)
-					currX = 2;
-				else if (resp == 3)
-					currX = 3;
-				else
-					cout << "Try Again";
+            while(invalidIn)
+            {
+               cout << "Which Area Would You Like to Go to Next? (1. East Town 2. Castle 3. West Town): ";
+               cin >> resp;
+
+               if(resp.length() == 1 && isdigit(resp[0]) && stoi(resp) > 0 && stoi(resp) < 4)
+               {
+                  invalidIn = false;
+                  if (resp == "1")
+                     currX = 1;
+                  else if (resp == "2")
+                     currX = 2;
+                  else if (resp == "3")
+                     currX = 3;
+               }
+               else
+               {
+                  cout << "User Input is Invalid" << endl;
+               }
+            }
 			}
 
 			cout << "Going to " << getLocat().getName() << endl;
