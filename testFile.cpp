@@ -37,8 +37,8 @@ public:
         switch(entityID) 
    	    {   
    	    	case 004:		 // goblin
-   			   	health = 7; 
-    			armorClass = 10; 
+   			   	health = 23; 
+    			armorClass = 7; 
     		    attackDam = die(6) + 2; 
     	    	speed = die(20);
     	    	id = entityID;
@@ -67,11 +67,10 @@ public:
     	    	speed = die(20); 
     	    	id = entityID;
    		    	break;
-
-   		    xpScore = 0; 
-    	   	level = 1; 
-    	   	xpToGive = 50; 
    	    }
+   	    xpScore = 0; 
+    	level = 1; 
+    	xpToGive = 50; 
     }
     void setHealth(int h);
     int getHealth(); 
@@ -162,31 +161,35 @@ int Entity::getXP()
 }
 
 int Entity::rollDamage()
-{  	
-    return die(6) + 2; 
-}
-
-int Entity::rollDamage(int entityID)
 { 
    	int damage = 0;
 
-   	switch(entityID) 
+   	switch(id) 
    	{
-  		case 001:
-    			for(int i = 0; i < level; i++)
-    				damage += die(8);
+  		case 1:
+    		for(int i = 0; i < level; i++)
+    			damage += die(8);
+    		cout << "\n You brandish your Greatsword and swing dealing " << damage << " points of damage!\n";
     		return damage;
    
-   		case 002:
-    			for(int i = 0; i < level; i++)
-    				damage += die(10);
+   		case 2:
+    		for(int i = 0; i < level; i++)
+    			damage += die(10);
+    		cout << "\n You reel back and swing your Battle Ax dealing " << damage << " points of damage!\n";
     		return damage;
    				
-   		case 003:
-    			for(int i = 0; i < level*2; i++)
-    				damage += die(6);
+   		case 3:
+    		for(int i = 0; i < level*2; i++)
+    			damage += die(6);
+    		cout << "\n You chant and flourish your wand casting a spell that deals " << damage << " points of damage!\n";
     		return damage;
-    				
+    		
+    	case 4:
+    	    damage = die(6) + 2;
+    	    cout << "\n The Goblin lashes out at you dealing " << damage << " points of damage!\n";
+    	    return damage;
+    	    break;
+    		
     	default:
     		return 0;
   	}
@@ -196,38 +199,42 @@ int main()
 {
 	cout << "\n\n\t\t\t     * KINGDOM QUEST * ";
 
-	cout << "\n\n  You awaken deep in the forest laying in a crater surrounded by what appears to ";
-	cout << "\nbe splatters of human blood and scorched earth. The woods all around you extend ";
-	cout << "\ndeep and seemingly disappear into a cozy darkness. For some reason you cannot ";
-	cout << "\nrecall the events that lead you to this place; In the distance, you hear a familiar ";
-	cout << "\nvoice call to you. ";
+	cout << "\n\n   You awaken deep in the forest laying in a crater surrounded by what appears to ";
+	cout << "\n be splatters of human blood and scorched earth. The woods all around you extend ";
+	cout << "\n deep and seemingly disappear into a cozy darkness. For some reason you cannot ";
+	cout << "\n recall the events that lead you to this place; In the distance, you hear a familiar ";
+	cout << "\n voice call to you. ";
 
-	cout << "\n\n   * You shuffle to your feet and make your way through the thickets * ";
+	cout << "\n\n    * You shuffle to your feet and make your way through the thickets * ";
 
-	cout << "\n\n  In a small clearing directly in front of you, you see King Balthasar, the crowned ";
-	cout << "\nking of the kingdom, sitting upright with a wound on his chest surrounded by small ";
-	cout << "\nmushroom people using some kind of magic to heal his wound. He beckons to you and ";
-	cout << "\nexplains the events that unfolded over the course of the last couple hours. Sometime ";
-	cout << "\naround mid day, the castle was attacked and the king suffered a great loss, his royal ";
-	cout << "\nguards and his claim to the throne; when an evil archmage named Volkarth attacked and ";
-	cout << "\nseized control of the castle. ";
+	cout << "\n\n   In a small clearing directly in front of you, you see King Balthasar, the crowned ";
+	cout << "\n king of the kingdom, sitting upright with a wound on his chest surrounded by small ";
+	cout << "\n mushroom people using some kind of magic to heal his wound. He beckons to you and ";
+	cout << "\n explains the events that unfolded over the course of the last couple hours. Sometime ";
+	cout << "\n around mid day, the castle was attacked and the king suffered a great loss, his royal ";
+	cout << "\n guards and his claim to the throne; when an evil archmage named Volkarth attacked and ";
+	cout << "\n seized control of the castle. ";
 
-	cout << "\n\n  The guards fought valiantly but could not defeat Volkarth ";
-	cout << "\nand his magic; Having reached the king’s chambers, Volkarth then attempted to kill the ";
-	cout << "\nking and claim the throne for himself but, before he could, someone intervened. With ";
-	cout << "\nhis dying words, Aerowynn, the king’s mage, cast a spell to eject all surviving members ";
-	cout << "\nof the king’s guard, and the king himself, to the safety of the southern forest. ";
-	cout << "\nYou are all that remains of my guards, you must travel across the land and defeat Volkarth. ";
-	cout << "\nHowever, it is dangerous to go alone! Take this!";
+	cout << "\n\n   The guards fought valiantly but could not defeat Volkarth and his magic.";
+	cout << "\n Having reached the king’s chambers, Volkarth then attempted to kill the ";
+	cout << "\n king and claim the throne for himself, however, before he could someone intervened. With ";
+	cout << "\n his dying words, Aerowynn, the king's trusted mage, cast a spell to eject all surviving ";
+	cout << "\n members of the king’s guard, and the king himself, to the safety of the southern forest. ";
+	cout << "\n\n You are all that remains of my guards, you must travel across the land and defeat Volkarth. ";
+	cout << "\n\t\t However, it is dangerous to go alone! Take this!";
 
-	cout << "\n\n   * King Balthasar pulls out three weapons and lays them at your feet *";
+	cout << "\n\n     * King Balthasar pulls out three weapons and lays them at your feet *";
 
     cout << "\n\n   * Before you lie three weapons: A Greatsword, A Battle Ax, and a Magic Wand  *";
 
     int choices = 0;
+    
+    do{
+        cout << "\n\n Which do you choose (1, 2, 3)?" << endl;
+        cout << "\n > ";
+   	    cin >> choices;
+    }while(choices < 1 || choices > 3);
 
-    cout << "\n\n Which do you choose (1, 2, 3): ";
-   	cin >> choices;
 
     Entity player(00 + choices);
 
@@ -235,47 +242,68 @@ int main()
 
     Entity enemy(004);
 
-    cout << "\n\n   * You are attacked, Prepare for combat!!! * \n\n";
+    cout << "\n\n   * You are attacked, Prepare for combat!!! * \n";
 
-    while(inCombat)
+    while(inCombat && enemy.getHealth() > 0 && player.getHealth() > 0)
     {
         int dam = 0, choice = 0;
 
-        cout << "Current Health: " << player.getHealth() << "\t" << "Enemy HP: " << enemy.getHealth() << endl;
-                                
-        cout << "\nWhat would you like to do?\n";
-        cout << "1. Fight      2. Flee\n\n";
-
-        cin >> choice;
+        cout << "\n Goblin HP: " << enemy.getHealth() << endl << endl;
+        
+        cout << " Player HP: " << player.getHealth() << endl;
+        
+        do{
+            cout << "\n What would you like to do (1, 2)?\n";
+            cout << "\tFight      Flee\n";
+            cout << "\n > ";
+            cin >> choice;
+        }while(choice < 1 || choice > 2);
 
         switch(choice) 
         {
             case 1:
                 if (die(20) >= enemy.getArmorClass())
                 {
-                    dam = player.rollDamage(player.getID());
-                    enemy.takeDamage(dam);
+                    dam = player.rollDamage();
+                    enemy.setHealth(enemy.getHealth() - dam);
                 }
                 else
-                    cout << "You swing and miss!\n";
+                    cout << "\n You swing and miss!\n";
+                    
+                if (die(20) >= player.getArmorClass() && enemy.getHealth() > 0)
+                {
+                    dam = enemy.rollDamage();
+                    player.setHealth(player.getHealth() - dam);
+                }
+                else if(enemy.getHealth() > 0)
+                    cout << "\n The enemy swung and missed!\n";
                 break;
 
             case 2:
-                if (die(20) > 14)
+                if (die(20) >= 14)
                     inCombat = false;
                 else
                 {
-                    cout << "You failed to escape!\n";
+                    cout << "\n You failed to escape!\n";
                     dam = enemy.rollDamage();
-                    player.takeDamage(dam);
+                    player.setHealth(player.getHealth() - dam);
+                    cout << "\n The Goblin lashes out at you dealing " << dam << " points of damage!\n";
                 }
                 break;
         }
-
-        if(player.getHealth() == 0 || enemy.getHealth() == 0)
+            
+        if(enemy.getHealth() <= 0)
+        {
+            cout << "\n You have defeated the enemy!\n";
             inCombat = false;
+        }
+        
+        if(player.getHealth() <= 0) {
+            cout << "\n You were defeated in battle!\n";
+            inCombat = false;
+        }
     }
-    cout << "Combat has ended!\n\n";
+    cout << "\n Game Over!\n\n";
 }
 
 int die(int max)	//one of the die that is used for certain scenarios
