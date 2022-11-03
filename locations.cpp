@@ -90,7 +90,7 @@ public:
             while(invalidIn)
             {
                cout << "Which Area Would You Like to Go to Next? (1. East Town 2. Castle 3. West Town): ";
-               cin >> resp;
+               getline(cin, resp);
 
                if(resp.length() == 1 && isdigit(resp[0]) && stoi(resp) > 0 && stoi(resp) < 4)
                {
@@ -113,7 +113,7 @@ public:
             while(invalidIn)
             {
                cout << "Which Area Would You Like to Go to Next? (1. Forest 2. Castle 3. Mountain): ";
-               cin >> resp;
+               getline(cin, resp);
 
                if(resp.length() == 1 && isdigit(resp[0]) && stoi(resp) > 0 && stoi(resp) < 4)
                {
@@ -140,7 +140,7 @@ public:
             while(invalidIn)
             {
                cout << "Which Area Would You Like to Go to Next? (1. Forest 2. Castle 3. Mountain): ";
-               cin >> resp;
+               getline(cin, resp);
 
                if(resp.length() == 1 && isdigit(resp[0]) && stoi(resp) > 0 && stoi(resp) < 4)
                {
@@ -163,7 +163,7 @@ public:
             while(invalidIn)
             {
                cout << "Which Area Would You Like to Go to Next? (1. East Town 2. Castle 3. West Town): ";
-               cin >> resp;
+               getline(cin, resp);
 
                if(resp.length() == 1 && isdigit(resp[0]) && stoi(resp) > 0 && stoi(resp) < 4)
                {
