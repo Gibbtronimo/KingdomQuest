@@ -94,80 +94,35 @@ public:
 	int rollDamage();
 };
 
-void Entity::setHealth(int h)
-{ 
-	health = h; 
-}
+void Entity::setHealth(int h) { health = h; }
 
-int Entity::getHealth()
-{ 
-	return health; 
-}
+int Entity::getHealth() { return health; }
 
-void Entity::setArmorClass(int ac)
-{ 
-	armorClass = ac; 
-}
+void Entity::setArmorClass(int ac){ 	armorClass = ac; }
 
-int Entity::getArmorClass()
-{
-	return armorClass;
-}
+int Entity::getArmorClass(){	return armorClass;}
 
-void Entity::setSpeed(int s)
-{ 
-	speed = s; 
-}
+void Entity::setSpeed(int s){ 	speed = s; }
         
-int Entity::getSpeed()
-{ 
-	return speed; 
-}
+int Entity::getSpeed(){ 	return speed; }
 
-void Entity::setAttackDamage(int ad)
-{ 
-	attackDam = ad; 
-}
+void Entity::setAttackDamage(int ad){ 	attackDam = ad; }
        
-int Entity::getAttackDamage()
-{ 
-	return attackDam; 
-}
+int Entity::getAttackDamage(){ 	return attackDam; }
 
-void Entity::takeDamage(int dam)
-{ 
-	health -= dam; 
-}
+void Entity::takeDamage(int dam){ 	health -= dam; }
        
-int Entity::getID()
-{ 
-	return id; 
-}
+int Entity::getID(){ 	return id; }
 
-int Entity::getLevel()
-{ 
-    return level; 
-}
+int Entity::getLevel(){     return level; }
 
-int Entity::getScore()
-{ 
-    return xpScore; 
-}
+int Entity::getScore(){     return xpScore; }
 
-int Entity::getHitDie()
-{ 
-	return hitDie; 
-}
+int Entity::getHitDie(){ 	return hitDie; }
 
-int Entity::getXP()
-{ 
-	return xpToGive; 	
-}
+int Entity::getXP(){ 	return xpToGive; 	}
 
-int Entity::rollDamage()
-{  	
-    return d6() + 2; 
-}
+int Entity::rollDamage(){  	    return d6() + 2; }
 
 int Entity::rollDamage(int entityID)
 { 
