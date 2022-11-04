@@ -197,7 +197,9 @@ int main()
         cout << "\n of the soil in the crater and the moss that grows along the forest floor. Slowly, the calls";
         cout << "\n weaken and the forest falls silent. Time passes and you feel yourself growing weaker until you";
         cout << "\n succumb to your wounds. You die peacefully; undisturbed in the southern forest.\n\n";
+
         cout << "\n\t\t\t\t   Game Over!\n\n";
+
         return 0;
     }
 
@@ -348,7 +350,7 @@ int main()
             inCombat = false;
         }
     }
-    cout << "\n Game Over!\n\n";
+    cout << "\n\t\t\tGame Over!\n\n";
 }
 
 int die(int max)    //one of the die that is used for certain scenarios
@@ -366,3 +368,5 @@ int die(int max)    //one of the die that is used for certain scenarios
     return die;
 }
 
+
+//  g++ -o combat testFile.cpp
