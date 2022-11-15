@@ -2,43 +2,17 @@
 #include "mergeClasses.h"
 
 //-------------------------------------------------------------------------------------------
-//Entity Functions
+//Player Functions
 //-------------------------------------------------------------------------------------------
 
-void Entity::setHealth(int h){ health = h; }
-
-int Entity::getHealth(){ return health; }
-
-void Entity::setArmorClass(int ac){ armorClass = ac; }
-
-int Entity::getArmorClass(){ return armorClass; }
-
-void Entity::setSpeed(int s){ speed = s; }
-        
-int Entity::getSpeed(){ return speed; }
-
-void Entity::setAttackDamage(int ad){ attackDam = ad; }
-       
-int Entity::getAttackDamage(){ return attackDam; }
-
-void Entity::takeDamage(int dam){ health -= dam; }
-       
-int Entity::getID(){ return id; }
-
-int Entity::getLevel(){ return level; }
-
-int Entity::getScore(){ return xpScore; }
-
-int Entity::getHitDie(){ return hitDie; }
-
-int Entity::getXP(){ return xpToGive; }
-
-int Entity::rollDamage()
+int Player::rollDamage()
 { 
     int damage = 0;
+    int level = getLevel();
 
-    switch(id) 
+    switch(getID()) 
     {
+
         case 1:
             for(int i = 0; i < level; i++)
                 damage += die(8);
@@ -57,20 +31,10 @@ int Entity::rollDamage()
             cout << "\n You chant and flourish your wand casting a spell that deals " << damage << " points of damage!\n";
             return damage;
             
-        case 4:
-            damage = die(6) + 2;
-            cout << "\n The Goblin lashes out at you dealing " << damage << " points of damage!\n";
-            return damage;
-            break;
-            
         default:
             return 0;
     }
 }
-
-//-------------------------------------------------------------------------------------------
-//Player Functions
-//-------------------------------------------------------------------------------------------
 
 void Player::nextLocat()
 {
@@ -183,6 +147,27 @@ void Player::nextLocat()
         }
 
         cout << "Going to " << getLocat().getName() << endl;
+    }
+}
+
+//-------------------------------------------------------------------------------------------
+//Enemy Functions
+//-------------------------------------------------------------------------------------------
+
+int Enemy::rollDamage()
+{ 
+    int damage = 0;
+
+    switch(getID()) 
+    {
+        case 1:
+            damage = die(6) + 2;
+            cout << "\n The Goblin lashes out at you dealing " << damage << " points of damage!\n";
+            return damage;
+            break;
+            
+        default:
+            return 0;
     }
 }
 
