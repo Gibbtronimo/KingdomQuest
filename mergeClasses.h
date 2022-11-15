@@ -3,8 +3,8 @@
 
 #include<iostream>
 #include<string>
-#include <cstdlib>
-#include <ctime>
+#include<cstdlib>
+#include<ctime>
 
 using namespace std;
 
@@ -13,19 +13,57 @@ const int TOTAL_LOCATIONS = 4;
 
 int die(int max);
 
+class Entity         // entity parent class
+{
+private:
+    int health;
+    int armorClass;
+    int attackDam;
+    int speed;
+    int level;
+    int hitDie;
+    int entityID;
+
+public:
+    Entity()                // Default Constructor
+    { 
+        health = 0; 
+        armorClass = 0; 
+        attackDam = 0; 
+        speed = 0; 
+        level = 1;
+    }
+
+    void setHealth(int h) { health = h; }
+    int getHealth() { return health; }
+    void setArmorClass(int ac){ armorClass = ac; }
+    int getArmorClass(){ return armorClass; }
+    void setSpeed(int s){ speed = s; } 
+    int getSpeed() { return speed; }
+    void setAttackDamage(int ad) { attackDam = ad; }
+    int getAttackDamage() { return attackDam; }
+    void takeDamage(int dam) { health -= dam; }
+    int getLevel() { return level; }
+    int getHitDie(){ return hitDie; }
+    void setID(int id) { entityID = id; }
+    int getID() { return entityID; }
+};
+
+//----------------------------------------------------------------------
+
 class Loc
 {
 private:
 	string locName;
 	int combOccur;
-	string enemName;
+	int enemyID;
 
 public:
 	Loc()
 	{
 		locName = "";
 		combOccur = 0;
-		enemName = "monster";
+		enemyID = 001;
 	}
 
 	void setName(string n) { locName = n; }
@@ -34,23 +72,64 @@ public:
 
 	int getComb() { return combOccur; }
 
-	string getEnemName() { return enemName; }
+    void setEnemyID(int passID) { enemyID = passID; }
+
+	int getEnemyID() { return enemyID; }
 
 	//Overload equals operator
 };
 
-class Player
+class Player: public Entity
 {
 private:
-	int currX;
+    int xpScore;
+	
+    int currX;
 	int currY;
-	int healthPoints;
-	Loc locations[TOTAL_AREAS][TOTAL_LOCATIONS];
+    Loc locations[TOTAL_AREAS][TOTAL_LOCATIONS];
 
 public:
-	Player()
+	Player(int playerID)
 	{
-		healthPoints = 20;
+        int hp;
+        int armor;
+        int atk;
+        int spd;
+        
+        switch(playerID)
+        {
+            case 1:
+                hp = 24; 
+                armor = 12; 
+                atk = die(8); 
+                spd = die(20);
+                setID(playerID);
+                break;
+
+            case 2:
+                hp = 29; 
+                armor = 10; 
+                atk = die(10); 
+                spd = die(20); 
+                setID(playerID);
+                break;
+                
+            case 3:
+                hp = 16; 
+                armor = 9; 
+                atk = 2 * die(6); 
+                spd = die(20); 
+                setID(playerID);
+                break;
+        };
+		
+        setHealth(hp);
+        setArmorClass(armor);
+        setAttackDamage(atk);
+        setSpeed(spd);
+        
+        xpScore = 0;
+
 		currX = 0;
 		currY = 0;
 		for (int i = 0; i < TOTAL_LOCATIONS; i++)
@@ -67,95 +146,52 @@ public:
 
 	int getY() { return currY; }
 
-	int getHP() { return healthPoints; }
-
 	Loc getLocat() { return locations[currX][currY]; }
 
 	void nextLocat();
+
+    int getScore() { return xpScore; } 
+
+    int rollDamage();
 };
 
 
-//-----------------------------------------------
-
-class Entity         // entity parent class
+class Enemy: public Entity
 {
 private:
-    int health;
-    int armorClass;
-    int attackDam;
-    int speed;
-    int id;
-    int level;
-    int xpScore;
-    int hitDie;
+    string enemName;
     int xpToGive;
-    int enemyID;
 
 public:
-    Entity()                // Default Constructor
-    { 
-        health = 0; 
-        armorClass = 0; 
-        attackDam = 0; 
-        speed = 0; 
-        id = 000; 
-    }
-
-    Entity(int entityID)        // Constructor
+    Enemy(int enemyID)
     {
-        switch(entityID) 
+        int hp;
+        int armor;
+        int atk;
+        int spd;
+        
+        enemName = "";
+        xpToGive = 50;
+
+        switch(enemyID) 
         {   
-            case 004:        // goblin
-                health = 23; 
-                armorClass = 7; 
-                attackDam = die(6) + 2; 
-                speed = die(20);
-                id = entityID;
-                break;
-
-            case 001:
-                health = 24; 
-                armorClass = 12; 
-                attackDam = die(8); 
-                speed = die(20); 
-                id = entityID;
-                break;
-
-            case 002:
-                health = 29; 
-                armorClass = 10; 
-                attackDam = die(10); 
-                speed = die(20); 
-                id = entityID;
-                break;
-                
-            case 003:
-                health = 16; 
-                armorClass = 9; 
-                attackDam = 2 * die(6); 
-                speed = die(20); 
-                id = entityID;
+            case 1:        // goblin
+                enemName = "Goblin";
+                hp = 23; 
+                armor = 7; 
+                atk = die(6) + 2; 
+                spd = die(20);
+                setID(enemyID);
                 break;
         }
-        xpScore = 0; 
-        level = 1; 
-        xpToGive = 50; 
+        setHealth(hp);
+        setArmorClass(armor);
+        setAttackDamage(atk);
+        setSpeed(spd);
     }
-    void setHealth(int h);
-    int getHealth(); 
-    void setArmorClass(int ac);
-    int getArmorClass();
-    void setSpeed(int s); 
-    int getSpeed(); 
-    void setAttackDamage(int ad); 
-    int getAttackDamage(); 
-    void takeDamage(int dam); 
-    int getID(); 
-    int rollDamage(int entityID);
-    int getLevel(); 
-    int getScore(); 
-    int getHitDie(); 
-    int getXP();
+
+    int getXP(){ return xpToGive; }
+
     int rollDamage();
 };
 
