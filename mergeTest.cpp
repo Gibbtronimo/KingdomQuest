@@ -115,11 +115,11 @@ int main()
 
     invalidIn = true;
 
-    Entity player(00 + choices);
+    Player player(choices);
 
     bool inCombat = true;
 
-    Entity enemy(004);
+    Enemy enemy(1);
 
     // cout << "\n\n   ";
     // cout << "\n     ";
@@ -130,6 +130,9 @@ int main()
 
     cout << "\n\t * You are attacked by a Goblin; Prepare for combat! * \n";
 
+    //cout << "enemy health and level: " << enemy.getHealth() << " " << enemy.getLevel() << endl;
+    //cout << "player health and level: " << player.getHealth() << " " << player.getLevel() << endl;
+    
     while(inCombat && enemy.getHealth() > 0 && player.getHealth() > 0)
     {
         int dam = 0, choice = 0;
