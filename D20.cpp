@@ -5,13 +5,13 @@
 
 using namespace std;
 
-int d20();
+int die(int max);
 
 int main()
 {
 	int num = 0;
 
-	num = d20();
+	num = die(20);
 
 	if(num != 8 && num != 11)
 		cout << "You rolled a " << num << endl;
@@ -19,17 +19,17 @@ int main()
 		cout << "You rolled an " << num << endl;
 }
 
-int d20()	//one of the die that is used for certain scenarios
+int die(int max)    //one of the die that is used for certain scenarios
 {
-	int die;
-	const int min = 1, max = 20;
+    int die;
+    const int min = 1;
 
-	unsigned seed = time(0);
-	srand(seed);
+    unsigned seed = time(0);
+    srand(seed);
 
-	die = (rand() % (max - min + 1)) + min;
-	
-	//cout << "D20: " << die << endl; // (used this to test if it worked)
-	
-	return die;
+    die = (rand() % (max - min + 1)) + min;
+    
+    //cout << "D20: " << die << endl; // (used this to test if it worked)
+    
+    return die;
 }
