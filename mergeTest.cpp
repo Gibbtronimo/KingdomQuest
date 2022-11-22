@@ -14,14 +14,7 @@ void combatOccurence(Player play)
 
     Enemy enemy(currentLoc.getEnemyID());
 
-    // cout << "\n\n   ";
-    // cout << "\n     ";
-    // cout << "\n     ";
-    // cout << "\n     ";
-    // cout << "\n     ";
-    // cout << "\n     ";
-
-    cout << "\n\t * You are attacked by a Goblin; Prepare for combat! * \n";
+    cout << "\n\t * You are attacked by a " << enemy.getName() << ". Prepare for combat! * \n";
 
     //cout << "enemy health and level: " << enemy.getHealth() << " " << enemy.getLevel() << endl;
     //cout << "player health and level: " << player.getHealth() << " " << player.getLevel() << endl;
