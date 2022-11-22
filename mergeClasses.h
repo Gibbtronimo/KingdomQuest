@@ -34,6 +34,7 @@ public:
     }
 
     void setHealth(int h) { health = h; }
+    void addHealth(int h) { health += h; }
     void setMaxHealth(int h) { maxHealth = h; }
     int getMaxHealth() { return maxHealth; }
     int getHealth() { return health; }
@@ -168,6 +169,8 @@ public:
 
 	}
 
+    void heal();
+
     int getX() { return currX; }
 
 	int getY() { return currY; }
@@ -214,7 +217,7 @@ public:
 
             case 2:        // Ogre 
                 enemName = "Ogre";
-                hp = 50; 
+                hp = 38; 
                 armor = 12; 
                 spd = die(20);
                 setID(enemyID);
