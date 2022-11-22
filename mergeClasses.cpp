@@ -5,6 +5,29 @@
 //Player Functions
 //-------------------------------------------------------------------------------------------
 
+void Player::checkXP()
+{
+    if(getScore() >= xpArr[getLevel()])
+    {
+        setLevel(getLevel() + 1);
+        switch(getID()) 
+        {
+            case 1:
+                setMaxHealth(getMaxHealth() + 6);
+                break;
+
+            case 2:
+                setMaxHealth(getMaxHealth() + 7);
+                break;
+
+            case 3:
+                setMaxHealth(getMaxHealth() + 4);
+                break;
+        }
+        setHealth(getMaxHealth());
+    }
+}
+
 int Player::rollDamage()
 { 
     int damage = 0;
@@ -17,20 +40,20 @@ int Player::rollDamage()
             for(int i = 0; i < level; i++)
                 damage += die(8);
             cout << "\n You brandish your Greatsword and swing dealing " << damage << " points of damage!\n";
-            return damage;
+            return damage + 3;
    
         case 2:
             for(int i = 0; i < level; i++)
                 damage += die(10);
             cout << "\n You reel back and swing your Battle Ax dealing " << damage << " points of damage!\n";
-            return damage;
+            return damage + 1;
                 
         case 3:
             for(int i = 0; i < level*2; i++)
                 damage += die(6);
             cout << "\n You chant and flourish your wand casting a spell that deals " << damage << " points of damage!\n";
-            return damage;
-            
+            return damage + 5;
+
         default:
             return 0;
     }
@@ -43,7 +66,7 @@ void Player::nextLocat()
     if (currY < 3)
     {
         currY++;
-        cout << "Going to " << getLocat().getName() << endl;
+        cout << "\n Going to " << getLocat().getName() << endl;
     }
     else
     {
@@ -146,7 +169,7 @@ void Player::nextLocat()
             }
         }
 
-        cout << "Going to " << getLocat().getName() << endl;
+        cout << "\n Going to " << getLocat().getName() << endl;
     }
 }
 
@@ -162,7 +185,51 @@ int Enemy::rollDamage()
     {
         case 1:
             damage = die(6) + 2;
-            cout << "\n The Goblin lashes out at you dealing " << damage << " points of damage!\n";
+            return damage;
+            break;
+
+        case 2:
+            damage = die(8) + die(8) + 4;
+            return damage;
+            break;
+
+        case 3:
+            damage = die(8) + 1;
+            return damage;
+            break;
+        
+        case 4:
+            damage = die(6) + 1;
+            return damage;
+            break;
+
+        case 5:
+            damage = die(6) + die(6) + 4;
+            return damage;
+            break;
+
+        case 6:
+            damage = die(8) + die(8) + 2;
+            return damage;
+            break;
+
+        case 7:
+            damage = die(6) + die(6) + 4;
+            return damage;
+            break;
+
+        case 8:
+            damage = die(8) + die(8) + die(8);
+            return damage;
+            break;
+
+        case 9:
+            damage = die(10) + die(10) + 2;
+            return damage;
+            break;
+
+        case 10:
+            damage = die(20) + die(20) + 4;
             return damage;
             break;
             

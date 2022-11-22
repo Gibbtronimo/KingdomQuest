@@ -5,7 +5,7 @@
 
 using namespace std;
 
-void combatOccurence(Player play)
+void combatOccurence(Player &play)
 {
     Loc currentLoc = play.getLocat();
     bool invalidIn = true;
@@ -14,14 +14,7 @@ void combatOccurence(Player play)
 
     Enemy enemy(currentLoc.getEnemyID());
 
-    // cout << "\n\n   ";
-    // cout << "\n     ";
-    // cout << "\n     ";
-    // cout << "\n     ";
-    // cout << "\n     ";
-    // cout << "\n     ";
-
-    cout << "\n\t * You are attacked by a Goblin; Prepare for combat! * \n";
+    cout << "\n\t * You are attacked by a(n) " << enemy.getName() << ". Prepare for combat! * \n";
 
     //cout << "enemy health and level: " << enemy.getHealth() << " " << enemy.getLevel() << endl;
     //cout << "player health and level: " << player.getHealth() << " " << player.getLevel() << endl;
@@ -30,9 +23,10 @@ void combatOccurence(Player play)
     {
         int dam = 0, choice = 0;
 
-        cout << "\n Goblin HP: " << enemy.getHealth() << endl << endl;
+        cout << "\n " << enemy.getName() << " HP: " << enemy.getHealth() << endl << endl;
         
-        cout << " Player HP: " << play.getHealth() << endl;
+        cout << " Player HP: " << play.getHealth() << " / " << play.getMaxHealth() << endl;
+        cout << " Player LVL: " << play.getLevel() << endl;
         
         do{
             cout << "\n   > Fight  \t  > Flee\n";
@@ -70,10 +64,11 @@ void combatOccurence(Player play)
                 if (die(20) >= play.getArmorClass() && enemy.getHealth() > 0)
                 {
                     dam = enemy.rollDamage();
+                    cout << "\n The " << enemy.getName() << " lashes out at you dealing " << dam << " points of damage!\n";
                     play.setHealth(play.getHealth() - dam);
                 }
                 else if(enemy.getHealth() > 0)
-                    cout << "\n The enemy swung and missed!\n";
+                    cout << "\n The " << enemy.getName() << " swung and missed!\n";
                 break;
 
             case 2:
@@ -84,19 +79,22 @@ void combatOccurence(Player play)
                     cout << "\n You failed to escape!\n";
                     dam = enemy.rollDamage();
                     play.setHealth(play.getHealth() - dam);
-                    cout << "\n The Goblin lashes out at you dealing " << dam << " points of damage!\n";
+                    cout << "\n The " << enemy.getName() << " lashes out at you dealing " << dam << " points of damage!\n";
                 }
                 break;
         }
             
         if(enemy.getHealth() <= 0)
         {
-            cout << "\n You have defeated the enemy!\n";
+            cout << "\n You have defeated the " << enemy.getName() << "!\n";
+            play.addXP(enemy.getXP());
+            cout << "\n Player Score: " << play.getScore() << "\n";
             inCombat = false;
         }
         
         if(play.getHealth() <= 0) {
             cout << "\n You were defeated in battle!\n";
+            cout << "\n Player Score: " << play.getScore() << "\n";
             inCombat = false;
         }
     }
@@ -212,17 +210,13 @@ int main()
 
     Player player(choices);
 
-    while(player.getX() != 2 || player.getY() != 3 && player.getHealth() != 0)
+    combatOccurence(player);
+    while(player.getX() != 2 && player.getY() != 3 && player.getHealth() > 0) //While not at final location and while players health is above zero, continue to go through locations and go through combat occurences
     {
         player.nextLocat();
         combatOccurence(player);
+        player.checkXP();
     }
     
     cout << "\n\t\t\tGame Over!\n\n";
 }
-
-/*
-int main()
-{
-    
-}*/
