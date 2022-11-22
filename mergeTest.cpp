@@ -23,7 +23,7 @@ void combatOccurence(Player play)
     {
         int dam = 0, choice = 0;
 
-        cout << "\n Goblin HP: " << enemy.getHealth() << endl << endl;
+        cout << "\n " << enemy.getName() << " HP: " << enemy.getHealth() << endl << endl;
         
         cout << " Player HP: " << play.getHealth() << endl;
         
@@ -66,7 +66,7 @@ void combatOccurence(Player play)
                     play.setHealth(play.getHealth() - dam);
                 }
                 else if(enemy.getHealth() > 0)
-                    cout << "\n The enemy swung and missed!\n";
+                    cout << "\n The " << enemy.getName() << " swung and missed!\n";
                 break;
 
             case 2:
@@ -77,14 +77,14 @@ void combatOccurence(Player play)
                     cout << "\n You failed to escape!\n";
                     dam = enemy.rollDamage();
                     play.setHealth(play.getHealth() - dam);
-                    cout << "\n The Goblin lashes out at you dealing " << dam << " points of damage!\n";
+                    cout << "\n The " << enemy.getName() << " lashes out at you dealing " << dam << " points of damage!\n";
                 }
                 break;
         }
             
         if(enemy.getHealth() <= 0)
         {
-            cout << "\n You have defeated the enemy!\n";
+            cout << "\n You have defeated the " << enemy.getName() << "!\n";
             inCombat = false;
         }
         
