@@ -93,7 +93,7 @@ class Player: public Entity
 {
 private:
     int xpScore = 0;
-    const int xpArr[10] = {0, 150, 650, 1200, 2800, 3900, 5900, 9500, 12500, 20000};
+    const int xpArr[10] = {0, 150, 650, 1200, 2800, 3900, 5900, 9500, 12500, 20000, 9999999999};
 	
     int currX;
 	int currY;
@@ -288,7 +288,7 @@ public:
                 break;
 
             case 10:        // Volkarth Magus
-                enemName = "Volkarth Magus";
+                enemName = "Darth Mage (Volkarth Magus)";
                 hp = 100; 
                 armor = 17; 
                 spd = die(20);
