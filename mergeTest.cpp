@@ -5,7 +5,102 @@
 
 using namespace std;
 
-//void combatOccurence()
+void combatOccurence(Player play)
+{
+    Loc currentLoc = play.getLocat();
+    bool invalidIn = true;
+    string resp;
+    bool inCombat = true;
+
+    Enemy enemy(currentLoc.getEnemyID());
+
+    // cout << "\n\n   ";
+    // cout << "\n     ";
+    // cout << "\n     ";
+    // cout << "\n     ";
+    // cout << "\n     ";
+    // cout << "\n     ";
+
+    cout << "\n\t * You are attacked by a Goblin; Prepare for combat! * \n";
+
+    //cout << "enemy health and level: " << enemy.getHealth() << " " << enemy.getLevel() << endl;
+    //cout << "player health and level: " << player.getHealth() << " " << player.getLevel() << endl;
+    
+    while(inCombat && enemy.getHealth() > 0 && play.getHealth() > 0)
+    {
+        int dam = 0, choice = 0;
+
+        cout << "\n Goblin HP: " << enemy.getHealth() << endl << endl;
+        
+        cout << " Player HP: " << play.getHealth() << endl;
+        
+        do{
+            cout << "\n   > Fight  \t  > Flee\n";
+            cout << "\n What would you like to do (1, 2)?\n";
+            cout << "\n > ";
+            getline(cin, resp);
+
+            if(resp.length() == 1 && isdigit(resp[0]) && stoi(resp) > 0 && stoi(resp) < 3)
+            {
+                invalidIn = false;
+                if (resp == "1")
+                   choice = 1;
+                else if (resp == "2")
+                   choice = 2;
+            }
+            else
+            {
+                cout << "\n Invalid Input! Try Again!" << endl;
+            }
+        } while(invalidIn);
+
+        invalidIn = true;
+
+        switch(choice) 
+        {
+            case 1:
+                if (die(20) >= enemy.getArmorClass())
+                {
+                    dam = play.rollDamage();
+                    enemy.setHealth(enemy.getHealth() - dam);
+                }
+                else
+                    cout << "\n You swing and miss!\n";
+                    
+                if (die(20) >= play.getArmorClass() && enemy.getHealth() > 0)
+                {
+                    dam = enemy.rollDamage();
+                    play.setHealth(play.getHealth() - dam);
+                }
+                else if(enemy.getHealth() > 0)
+                    cout << "\n The enemy swung and missed!\n";
+                break;
+
+            case 2:
+                if (die(20) >= 14)
+                    inCombat = false;
+                else
+                {
+                    cout << "\n You failed to escape!\n";
+                    dam = enemy.rollDamage();
+                    play.setHealth(play.getHealth() - dam);
+                    cout << "\n The Goblin lashes out at you dealing " << dam << " points of damage!\n";
+                }
+                break;
+        }
+            
+        if(enemy.getHealth() <= 0)
+        {
+            cout << "\n You have defeated the enemy!\n";
+            inCombat = false;
+        }
+        
+        if(play.getHealth() <= 0) {
+            cout << "\n You were defeated in battle!\n";
+            inCombat = false;
+        }
+    }
+}
 
 int main()
 {
@@ -117,96 +212,12 @@ int main()
 
     Player player(choices);
 
-    bool inCombat = true;
-
-    Enemy enemy(1);
-
-    // cout << "\n\n   ";
-    // cout << "\n     ";
-    // cout << "\n     ";
-    // cout << "\n     ";
-    // cout << "\n     ";
-    // cout << "\n     ";
-
-    cout << "\n\t * You are attacked by a Goblin; Prepare for combat! * \n";
-
-    //cout << "enemy health and level: " << enemy.getHealth() << " " << enemy.getLevel() << endl;
-    //cout << "player health and level: " << player.getHealth() << " " << player.getLevel() << endl;
-    
-    while(inCombat && enemy.getHealth() > 0 && player.getHealth() > 0)
+    while(player.getX() != 2 || player.getY() != 3 && player.getHealth() != 0)
     {
-        int dam = 0, choice = 0;
-
-        cout << "\n Goblin HP: " << enemy.getHealth() << endl << endl;
-        
-        cout << " Player HP: " << player.getHealth() << endl;
-        
-        do{
-            cout << "\n   > Fight  \t  > Flee\n";
-            cout << "\n What would you like to do (1, 2)?\n";
-            cout << "\n > ";
-            getline(cin, resp);
-
-            if(resp.length() == 1 && isdigit(resp[0]) && stoi(resp) > 0 && stoi(resp) < 3)
-            {
-                invalidIn = false;
-                if (resp == "1")
-                   choice = 1;
-                else if (resp == "2")
-                   choice = 2;
-            }
-            else
-            {
-                cout << "\n Invalid Input! Try Again!" << endl;
-            }
-        } while(invalidIn);
-
-        invalidIn = true;
-
-        switch(choice) 
-        {
-            case 1:
-                if (die(20) >= enemy.getArmorClass())
-                {
-                    dam = player.rollDamage();
-                    enemy.setHealth(enemy.getHealth() - dam);
-                }
-                else
-                    cout << "\n You swing and miss!\n";
-                    
-                if (die(20) >= player.getArmorClass() && enemy.getHealth() > 0)
-                {
-                    dam = enemy.rollDamage();
-                    player.setHealth(player.getHealth() - dam);
-                }
-                else if(enemy.getHealth() > 0)
-                    cout << "\n The enemy swung and missed!\n";
-                break;
-
-            case 2:
-                if (die(20) >= 14)
-                    inCombat = false;
-                else
-                {
-                    cout << "\n You failed to escape!\n";
-                    dam = enemy.rollDamage();
-                    player.setHealth(player.getHealth() - dam);
-                    cout << "\n The Goblin lashes out at you dealing " << dam << " points of damage!\n";
-                }
-                break;
-        }
-            
-        if(enemy.getHealth() <= 0)
-        {
-            cout << "\n You have defeated the enemy!\n";
-            inCombat = false;
-        }
-        
-        if(player.getHealth() <= 0) {
-            cout << "\n You were defeated in battle!\n";
-            inCombat = false;
-        }
+        player.nextLocat();
+        combatOccurence(player);
     }
+    
     cout << "\n\t\t\tGame Over!\n\n";
 }
 
