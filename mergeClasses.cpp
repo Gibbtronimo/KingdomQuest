@@ -5,6 +5,29 @@
 //Player Functions
 //-------------------------------------------------------------------------------------------
 
+void Player::checkXP()
+{
+    if(getScore() >= xpArr[getLevel()])
+    {
+        setLevel(getLevel() + 1);
+        switch(getID()) 
+        {
+            case 1:
+                setMaxHealth(getMaxHealth() + 6);
+                break;
+
+            case 2:
+                setMaxHealth(getMaxHealth() + 7);
+                break;
+
+            case 3:
+                setMaxHealth(getMaxHealth() + 4);
+                break;
+        }
+        setHealth(getMaxHealth());
+    }
+}
+
 int Player::rollDamage()
 { 
     int damage = 0;
@@ -17,20 +40,20 @@ int Player::rollDamage()
             for(int i = 0; i < level; i++)
                 damage += die(8);
             cout << "\n You brandish your Greatsword and swing dealing " << damage << " points of damage!\n";
-            return damage;
+            return damage + 3;
    
         case 2:
             for(int i = 0; i < level; i++)
                 damage += die(10);
             cout << "\n You reel back and swing your Battle Ax dealing " << damage << " points of damage!\n";
-            return damage;
+            return damage + 1;
                 
         case 3:
             for(int i = 0; i < level*2; i++)
                 damage += die(6);
             cout << "\n You chant and flourish your wand casting a spell that deals " << damage << " points of damage!\n";
-            return damage;
-            
+            return damage + 5;
+
         default:
             return 0;
     }
