@@ -14,7 +14,7 @@ void combatOccurence(Player &play)
 
     Enemy enemy(currentLoc.getEnemyID());
 
-    cout << "\n\t * You are attacked by a " << enemy.getName() << ". Prepare for combat! * \n";
+    cout << "\n\t * You are attacked by a(n) " << enemy.getName() << ". Prepare for combat! * \n";
 
     //cout << "enemy health and level: " << enemy.getHealth() << " " << enemy.getLevel() << endl;
     //cout << "player health and level: " << player.getHealth() << " " << player.getLevel() << endl;
@@ -25,7 +25,7 @@ void combatOccurence(Player &play)
 
         cout << "\n " << enemy.getName() << " HP: " << enemy.getHealth() << endl << endl;
         
-        cout << " Player HP: " << play.getHealth() << endl;
+        cout << " Player HP: " << play.getHealth() << " / " << play.getMaxHealth() << endl;
         cout << " Player LVL: " << play.getLevel() << endl;
         
         do{
@@ -210,17 +210,13 @@ int main()
 
     Player player(choices);
 
-    while(player.getX() != 2 || player.getY() != 3 && player.getHealth() != 0)
+    combatOccurence(player);
+    while(player.getX() != 2 && player.getY() != 3 && player.getHealth() > 0) //While not at final location and while players health is above zero, continue to go through locations and go through combat occurences
     {
         player.nextLocat();
         combatOccurence(player);
+        player.checkXP();
     }
     
     cout << "\n\t\t\tGame Over!\n\n";
 }
-
-/*
-int main()
-{
-    
-}*/
