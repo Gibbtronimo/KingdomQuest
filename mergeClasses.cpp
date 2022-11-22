@@ -4,6 +4,36 @@
 //-------------------------------------------------------------------------------------------
 //Player Functions
 //-------------------------------------------------------------------------------------------
+void Player::heal() 
+{     
+    int tempHP = 0;
+    switch(getID()) 
+    {
+        case 1:
+            tempHP = die(8);
+            break;
+
+        case 2:
+            tempHP = die(10);
+            break;
+
+        case 3:
+            tempHP = die(6);
+            break;
+    }
+
+    if(tempHP + getHealth() <= getMaxHealth())
+    {
+        addHealth(tempHP);  
+        cout << "\n You healed for " << tempHP << " hp!\n";
+    }
+    else
+    {
+        setHealth(getMaxHealth());
+        cout << "\n You healed back to full hp!\n";
+    }
+}
+
 
 void Player::checkXP()
 {
@@ -39,19 +69,19 @@ int Player::rollDamage()
         case 1:
             for(int i = 0; i < level; i++)
                 damage += die(8);
-            cout << "\n You brandish your Greatsword and swing dealing " << damage << " points of damage!\n";
+            cout << "\n You brandish your Greatsword and swing dealing " << damage + 3 << " points of damage!\n";
             return damage + 3;
    
         case 2:
             for(int i = 0; i < level; i++)
                 damage += die(10);
-            cout << "\n You reel back and swing your Battle Ax dealing " << damage << " points of damage!\n";
+            cout << "\n You reel back and swing your Battle Ax dealing " << damage + 1 << " points of damage!\n";
             return damage + 1;
                 
         case 3:
             for(int i = 0; i < level*2; i++)
                 damage += die(6);
-            cout << "\n You chant and flourish your wand casting a spell that deals " << damage << " points of damage!\n";
+            cout << "\n You chant and flourish your wand casting a spell that deals " << damage + 5 << " points of damage!\n";
             return damage + 5;
 
         default:
@@ -76,7 +106,7 @@ void Player::nextLocat()
         {
         while(invalidIn)
         {
-            cout << "Which Area Would You Like to Go to Next? (1. East Town 2. Castle 3. West Town): ";
+            cout << "\n Which Area Would You Like to Go to Next? (1. East Town 2. Castle 3. West Town)\n\n > ";
             getline(cin, resp);
 
             if(resp.length() == 1 && isdigit(resp[0]) && stoi(resp) > 0 && stoi(resp) < 4)
@@ -91,7 +121,7 @@ void Player::nextLocat()
             }
             else
             {
-                cout << "User Input is Invalid" << endl;
+                cout << " User Input is Invalid" << endl;
             }
         }
         }
@@ -99,7 +129,7 @@ void Player::nextLocat()
         {
         while(invalidIn)
         {
-            cout << "Which Area Would You Like to Go to Next? (1. Forest 2. Castle 3. Mountain): ";
+            cout << "\n Which Area Would You Like to Go to Next? (1. Forest 2. Castle 3. Mountain): ";
             getline(cin, resp);
 
             if(resp.length() == 1 && isdigit(resp[0]) && stoi(resp) > 0 && stoi(resp) < 4)
@@ -126,7 +156,7 @@ void Player::nextLocat()
         {
         while(invalidIn)
         {
-            cout << "Which Area Would You Like to Go to Next? (1. Forest 2. Castle 3. Mountain): ";
+            cout << "\n Which Area Would You Like to Go to Next? (1. Forest 2. Castle 3. Mountain): ";
             getline(cin, resp);
 
             if(resp.length() == 1 && isdigit(resp[0]) && stoi(resp) > 0 && stoi(resp) < 4)
@@ -141,7 +171,7 @@ void Player::nextLocat()
             }
             else
             {
-                cout << "User Input is Invalid" << endl;
+                cout << " User Input is Invalid" << endl;
             }
         }
         }
@@ -149,7 +179,7 @@ void Player::nextLocat()
         {
             while(invalidIn)
             {
-                cout << "Which Area Would You Like to Go to Next? (1. East Town 2. Castle 3. West Town): ";
+                cout << "\n Which Area Would You Like to Go to Next? (1. East Town 2. Castle 3. West Town): ";
                 getline(cin, resp);
 
                 if(resp.length() == 1 && isdigit(resp[0]) && stoi(resp) > 0 && stoi(resp) < 4)
@@ -164,7 +194,7 @@ void Player::nextLocat()
                 }
                 else
                 {
-                    cout << "User Input is Invalid" << endl;
+                    cout << "\n User Input is Invalid" << endl;
                 }
             }
         }
@@ -189,7 +219,7 @@ int Enemy::rollDamage()
             break;
 
         case 2:
-            damage = die(8) + die(8) + 4;
+            damage = die(8) + die(8);
             return damage;
             break;
 
