@@ -10,15 +10,18 @@ void Player::heal()
     switch(getID()) 
     {
         case 1:
-            tempHP = die(8) * getLevel();
+            for(int i = 0; i < getLevel(); i++)
+                tempHP += die(8);
             break;
 
         case 2:
-            tempHP = die(10) * getLevel();
+            for(int i = 0; i < getLevel(); i++)
+                tempHP += die(10);
             break;
 
         case 3:
-            tempHP = die(6) * getLevel();
+            for(int i = 0; i < getLevel(); i++)
+                tempHP += die(6);
             break;
     }
 
