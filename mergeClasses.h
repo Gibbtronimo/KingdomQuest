@@ -63,7 +63,7 @@ public:
 	{
 		locName = "";
 		combOccur = 0;
-		enemyID = 001;
+		enemyID = 1;
 	}
 
 	void setName(string n) { locName = n; }
@@ -142,7 +142,7 @@ public:
 		}
 	}
 
-	int getX() { return currX; }
+    int getX() { return currX; }
 
 	int getY() { return currY; }
 
