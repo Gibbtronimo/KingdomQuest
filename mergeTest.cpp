@@ -5,7 +5,7 @@
 
 using namespace std;
 
-void combatOccurence(Player play)
+void combatOccurence(Player &play)
 {
     Loc currentLoc = play.getLocat();
     bool invalidIn = true;
@@ -26,6 +26,7 @@ void combatOccurence(Player play)
         cout << "\n " << enemy.getName() << " HP: " << enemy.getHealth() << endl << endl;
         
         cout << " Player HP: " << play.getHealth() << endl;
+        cout << " Player LVL: " << play.getLevel() << endl;
         
         do{
             cout << "\n   > Fight  \t  > Flee\n";
@@ -63,6 +64,7 @@ void combatOccurence(Player play)
                 if (die(20) >= play.getArmorClass() && enemy.getHealth() > 0)
                 {
                     dam = enemy.rollDamage();
+                    cout << "\n The " << enemy.getName() << " lashes out at you dealing " << dam << " points of damage!\n";
                     play.setHealth(play.getHealth() - dam);
                 }
                 else if(enemy.getHealth() > 0)
@@ -85,11 +87,14 @@ void combatOccurence(Player play)
         if(enemy.getHealth() <= 0)
         {
             cout << "\n You have defeated the " << enemy.getName() << "!\n";
+            play.addXP(enemy.getXP());
+            cout << "\n Player Score: " << play.getScore() << "\n";
             inCombat = false;
         }
         
         if(play.getHealth() <= 0) {
             cout << "\n You were defeated in battle!\n";
+            cout << "\n Player Score: " << play.getScore() << "\n";
             inCombat = false;
         }
     }
