@@ -152,9 +152,9 @@ int main()
 
     if(choices == 2)
     {
-        cout << "\n   You hear the pleas in the forest and ask yourself if it is worth the effort to investigate";
+        cout << "\n   You hear the pleas in the forest and ask yourself if it is worth the effort to investigate,";
         cout << "\n to which you conclude that it is not. You lie back down and envelope yourself in the warmth";
-        cout << "\n of the soil in the crater and the moss that grows along the forest floor. Slowly, the calls";
+        cout << "\n of the soil, the crater, and the moss that grows along the forest floor. Slowly, the calls";
         cout << "\n weaken and the forest falls silent. Time passes and you feel yourself growing weaker until you";
         cout << "\n succumb to your wounds. You die peacefully; undisturbed in the southern forest.\n\n";
 
