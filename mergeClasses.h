@@ -190,6 +190,8 @@ public:
         setSpeed(spd);
     }
 
+    string getName() { return enemName; }
+
     int getXP(){ return xpToGive; }
 
     int rollDamage();
