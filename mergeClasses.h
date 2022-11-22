@@ -18,7 +18,6 @@ class Entity         // entity parent class
 private:
     int health;
     int armorClass;
-    int attackDam;
     int speed;
     int level;
     int hitDie;
@@ -29,7 +28,6 @@ public:
     { 
         health = 0; 
         armorClass = 0; 
-        attackDam = 0; 
         speed = 0; 
         level = 1;
     }
@@ -40,8 +38,6 @@ public:
     int getArmorClass(){ return armorClass; }
     void setSpeed(int s){ speed = s; } 
     int getSpeed() { return speed; }
-    void setAttackDamage(int ad) { attackDam = ad; }
-    int getAttackDamage() { return attackDam; }
     void takeDamage(int dam) { health -= dam; }
     int getLevel() { return level; }
     int getHitDie(){ return hitDie; }
@@ -82,7 +78,7 @@ public:
 class Player: public Entity
 {
 private:
-    int xpScore;
+    int xpScore = 0;
 	
     int currX;
 	int currY;
@@ -93,7 +89,6 @@ public:
 	{
         int hp;
         int armor;
-        int atk;
         int spd;
         
         switch(playerID)
@@ -101,7 +96,6 @@ public:
             case 1:
                 hp = 24; 
                 armor = 12; 
-                atk = die(8); 
                 spd = die(20);
                 setID(playerID);
                 break;
@@ -109,7 +103,6 @@ public:
             case 2:
                 hp = 29; 
                 armor = 10; 
-                atk = die(10); 
                 spd = die(20); 
                 setID(playerID);
                 break;
@@ -117,7 +110,6 @@ public:
             case 3:
                 hp = 16; 
                 armor = 9; 
-                atk = 2 * die(6); 
                 spd = die(20); 
                 setID(playerID);
                 break;
@@ -125,7 +117,6 @@ public:
 		
         setHealth(hp);
         setArmorClass(armor);
-        setAttackDamage(atk);
         setSpeed(spd);
         
         xpScore = 0;
@@ -152,6 +143,8 @@ public:
 
     int getScore() { return xpScore; } 
 
+    void addXP(int xp){ xpScore += xp; }
+
     int rollDamage();
 };
 
@@ -167,26 +160,104 @@ public:
     {
         int hp;
         int armor;
-        int atk;
         int spd;
         
         enemName = "";
-        xpToGive = 50;
 
         switch(enemyID) 
         {   
-            case 1:        // goblin
+            case 1:        // Goblin
                 enemName = "Goblin";
-                hp = 23; 
+                hp = 14; 
                 armor = 7; 
-                atk = die(6) + 2; 
                 spd = die(20);
                 setID(enemyID);
+                xpToGive = 50;
+                break;
+
+            case 2:        // Ogre 
+                enemName = "Ogre";
+                hp = 50; 
+                armor = 12; 
+                spd = die(20);
+                setID(enemyID);
+                xpToGive = 250;
+                break;
+            
+            case 3:        // Cultist
+                enemName = "Cultist";
+                hp = 28; 
+                armor = 12; 
+                spd = die(20);
+                setID(enemyID);
+                xpToGive = 150;
+                break;
+
+            case 4:        // Troglodyte
+                enemName = "Troglodyte";
+                hp = 23; 
+                armor = 11; 
+                spd = die(20);
+                setID(enemyID);
+                xpToGive = 150;
+                break;
+
+            case 5:        // Troll
+                enemName = "Troll";
+                hp = 59; 
+                armor = 13; 
+                spd = die(20);
+                setID(enemyID);
+                xpToGive = 250;
+                break;
+
+            case 6:        // Displacer Beast
+                enemName = "Displacer Beast";
+                hp = 34; 
+                armor = 13; 
+                spd = die(20);
+                setID(enemyID);
+                xpToGive = 550;
+                break;
+
+            case 7:        // Oracle
+                enemName = "Oracle";
+                hp = 60; 
+                armor = 14; 
+                spd = die(20);
+                setID(enemyID);
+                xpToGive = 650;
+                break;
+
+            case 8:        // Stone Giant
+                enemName = "Stone Giant";
+                hp = 67; 
+                armor = 15; 
+                spd = die(20);
+                setID(enemyID);
+                xpToGive = 1200;
+                break;
+            
+            case 9:        // Death Knight
+                enemName = "Death Knight";
+                hp = 42; 
+                armor = 15; 
+                spd = die(20);
+                setID(enemyID);
+                xpToGive = 1250;
+                break;
+
+            case 10:        // Volkarth Magus
+                enemName = "Volkarth Magus";
+                hp = 100; 
+                armor = 17; 
+                spd = die(20);
+                setID(enemyID);
+                xpToGive = 5000;
                 break;
         }
         setHealth(hp);
         setArmorClass(armor);
-        setAttackDamage(atk);
         setSpeed(spd);
     }
 
