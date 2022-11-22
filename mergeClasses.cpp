@@ -43,7 +43,7 @@ void Player::nextLocat()
     if (currY < 3)
     {
         currY++;
-        cout << "Going to " << getLocat().getName() << endl;
+        cout << "\n Going to " << getLocat().getName() << endl;
     }
     else
     {
@@ -146,7 +146,7 @@ void Player::nextLocat()
             }
         }
 
-        cout << "Going to " << getLocat().getName() << endl;
+        cout << "\n Going to " << getLocat().getName() << endl;
     }
 }
 
@@ -162,7 +162,51 @@ int Enemy::rollDamage()
     {
         case 1:
             damage = die(6) + 2;
-            cout << "\n The Goblin lashes out at you dealing " << damage << " points of damage!\n";
+            return damage;
+            break;
+
+        case 2:
+            damage = die(8) + die(8) + 4;
+            return damage;
+            break;
+
+        case 3:
+            damage = die(8) + 1;
+            return damage;
+            break;
+        
+        case 4:
+            damage = die(6) + 1;
+            return damage;
+            break;
+
+        case 5:
+            damage = die(6) + die(6) + 4;
+            return damage;
+            break;
+
+        case 6:
+            damage = die(8) + die(8) + 2;
+            return damage;
+            break;
+
+        case 7:
+            damage = die(6) + die(6) + 4;
+            return damage;
+            break;
+
+        case 8:
+            damage = die(8) + die(8) + die(8);
+            return damage;
+            break;
+
+        case 9:
+            damage = die(10) + die(10) + 2;
+            return damage;
+            break;
+
+        case 10:
+            damage = die(20) + die(20) + 4;
             return damage;
             break;
             
