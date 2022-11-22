@@ -29,18 +29,19 @@ void combatOccurence(Player &play)
         cout << " Player LVL: " << play.getLevel() << endl;
         
         do{
-            cout << "\n   > Fight  \t  > Flee\n";
-            cout << "\n What would you like to do (1, 2)?\n";
-            cout << "\n > ";
+            cout << "\n   > Fight  \t  > Heal  \t  > Flee\n";
+            cout << "\n What would you like to do (1, 2, 3)?\n\n > ";
             getline(cin, resp);
 
-            if(resp.length() == 1 && isdigit(resp[0]) && stoi(resp) > 0 && stoi(resp) < 3)
+            if(resp.length() == 1 && isdigit(resp[0]) && stoi(resp) > 0 && stoi(resp) < 4)
             {
                 invalidIn = false;
                 if (resp == "1")
                    choice = 1;
                 else if (resp == "2")
                    choice = 2;
+                else if (resp == "3")
+                   choice = 3;
             }
             else
             {
@@ -72,6 +73,18 @@ void combatOccurence(Player &play)
                 break;
 
             case 2:
+                play.heal();
+                if (die(20) >= play.getArmorClass() && enemy.getHealth() > 0)
+                {
+                    dam = enemy.rollDamage();
+                    cout << "\n The " << enemy.getName() << " lashes out at you dealing " << dam << " points of damage!\n";
+                    play.setHealth(play.getHealth() - dam);
+                }
+                else if(enemy.getHealth() > 0)
+                    cout << "\n The " << enemy.getName() << " swung and missed!\n";
+                break;
+
+            case 3:
                 if (die(20) >= 14)
                     inCombat = false;
                 else
@@ -211,7 +224,7 @@ int main()
     Player player(choices);
 
     combatOccurence(player);
-    while(player.getX() != 2 && player.getY() != 3 && player.getHealth() > 0) //While not at final location and while players health is above zero, continue to go through locations and go through combat occurences
+    while(not(player.getX() == 2 && player.getY() == 3) && player.getHealth() > 0) //While not at final location and while players health is above zero, continue to go through locations and go through combat occurences
     {
         player.nextLocat();
         combatOccurence(player);
