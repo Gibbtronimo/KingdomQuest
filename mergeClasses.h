@@ -93,7 +93,7 @@ class Player: public Entity
 {
 private:
     int xpScore = 0;
-    const int xpArr[10] = {0, 150, 650, 1200, 2800, 3900, 5900, 9500, 12500, 20000, 9999999999};
+    const int xpArr[11] = {0, 150, 650, 1200, 2800, 3900, 5900, 9500, 12500, 20000, 999999};
 	
     int currX;
 	int currY;
