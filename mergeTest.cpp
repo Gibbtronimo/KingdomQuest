@@ -29,7 +29,7 @@ void combatOccurence(Player &play)
         cout << " Player LVL: " << play.getLevel() << endl;
         
         do{
-            cout << "\n   > Fight  \t  > Heal  \t  > Flee\n";
+            cout << "\n   > Attack  \t  > Heal\t > Flee\n";
             cout << "\n What would you like to do (1, 2, 3)?\n\n > ";
             getline(cin, resp);
 
