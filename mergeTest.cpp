@@ -23,10 +23,11 @@ void combatOccurence(Player &play)
     {
         int dam = 0, choice = 0;
 
-        cout << "\n " << enemy.getName() << " HP: " << enemy.getHealth() << endl << endl;
+        cout << "\n\n " << enemy.getName() << " HP: " << enemy.getHealth() << endl << endl;
         
-        cout << " Player HP: " << play.getHealth() << " / " << play.getMaxHealth() << endl;
-        cout << " Player LVL: " << play.getLevel() << endl;
+        cout << " Health: " << play.getHealth() << " / " << play.getMaxHealth() << endl;
+        cout << "  Level: " << play.getLevel() << endl;
+        cout << "     XP: " << play.getScore() << "\n";
         
         do{
             cout << "\n   > Attack  \t  > Heal\t > Flee\n";
@@ -45,6 +46,7 @@ void combatOccurence(Player &play)
             }
             else
             {
+                system("clear");
                 cout << "\n Invalid Input! Try Again!" << endl;
             }
         } while(invalidIn);
@@ -56,11 +58,15 @@ void combatOccurence(Player &play)
             case 1:
                 if (die(20) >= enemy.getArmorClass())
                 {
+                    system("clear");
                     dam = play.rollDamage();
                     enemy.setHealth(enemy.getHealth() - dam);
                 }
                 else
+                {
+                    system("clear");
                     cout << "\n You swing and miss!\n";
+                }
                     
                 if (die(20) >= play.getArmorClass() && enemy.getHealth() > 0)
                 {
@@ -73,6 +79,7 @@ void combatOccurence(Player &play)
                 break;
 
             case 2:
+                system("clear");
                 play.heal();
                 if (die(20) >= play.getArmorClass() && enemy.getHealth() > 0)
                 {
@@ -85,6 +92,7 @@ void combatOccurence(Player &play)
                 break;
 
             case 3:
+                system("clear");
                 if (die(20) >= 14)
                     inCombat = false;
                 else
@@ -101,13 +109,13 @@ void combatOccurence(Player &play)
         {
             cout << "\n You have defeated the " << enemy.getName() << "!\n";
             play.addXP(enemy.getXP());
-            cout << "\n Player Score: " << play.getScore() << "\n";
             inCombat = false;
         }
         
-        if(play.getHealth() <= 0) {
+        if(play.getHealth() <= 0) 
+        {
             cout << "\n You were defeated in battle!\n";
-            cout << "\n Player Score: " << play.getScore() << "\n";
+            cout << "\n High Score: " << play.getScore() << "\n";
             inCombat = false;
         }
     }
@@ -118,6 +126,10 @@ int main()
     bool invalidIn = true;
     int choices = 0;
     string resp;
+
+    system("clear");
+    
+    cout << "\e[8;50;100t";
 
     cout << "\n\n\t\t\t      * KINGDOM QUEST * ";
 
@@ -152,6 +164,8 @@ int main()
 
     if(choices == 2)
     {
+        ;
+
         cout << "\n   You hear the pleas in the forest and ask yourself if it is worth the effort to investigate,";
         cout << "\n to which you conclude that it is not. You lie back down and envelope yourself in the warmth";
         cout << "\n of the soil, the crater, and the moss that grows along the forest floor. Slowly, the calls";
@@ -163,7 +177,9 @@ int main()
         return 0;
     }
 
-    cout << "\n\n    * You shuffle to your feet and make your way through the thickets * ";
+    system("clear");
+
+    cout << "\n\n      * You shuffle to your feet and make your way through the thickets * ";
 
     cout << "\n\n   In a small clearing directly in front of you, you see King Balthasar, the crowned ";
     cout << "\n king of the kingdom, sitting upright with a wound on his chest surrounded by the small ";
@@ -200,15 +216,19 @@ int main()
         if(resp.length() == 1 && isdigit(resp[0]) && stoi(resp) > 0 && stoi(resp) < 4)
         {
             invalidIn = false;
-            if (resp == "1"){
+            system("clear");
+            if (resp == "1")
+            {
                 cout << "\n\t\t You have chosen the Fighter Class!\n";
                 choices = 1;
             }
-            else if (resp == "2"){
+            else if (resp == "2")
+            {
                 cout << "\n\t\t You have chosen the Barbarian Class!\n";
                 choices = 2;
             }
-            else if (resp == "3"){
+            else if (resp == "3")
+            {
                 cout << "\n\t\t You have chosen the Wizard Class!\n";
                 choices = 3;
             }
