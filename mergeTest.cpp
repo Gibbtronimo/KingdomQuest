@@ -1,3 +1,9 @@
+ // Descr: This code holds the funtions that are called whenever the player
+ //        is entered into a combat scenario and that executes the start of
+ //        the game.
+ // Start Date: Nov 10th, 2022
+ // Final Date: Dec 1st, 2022 
+
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -5,12 +11,16 @@
 
 using namespace std;
 
+// combatOccurence: comabat occurence is called whenever a player is thrown into a combat scenario
+// and displays the enemy type that is attacking and a user interface that displays any stats that
+// are important to combat such as Player Health, Enemy Health, Player XP, and Player Level.
+
 void combatOccurence(Player &play)
 {
     Loc currentLoc = play.getLocat();
     bool invalidIn = true;
-    string resp;
     bool inCombat = true;
+    string resp;
 
     Enemy enemy(currentLoc.getEnemyID());
 
@@ -19,7 +29,7 @@ void combatOccurence(Player &play)
     //cout << "enemy health and level: " << enemy.getHealth() << " " << enemy.getLevel() << endl;
     //cout << "player health and level: " << player.getHealth() << " " << player.getLevel() << endl;
     
-    while(inCombat && enemy.getHealth() > 0 && play.getHealth() > 0)
+    while(inCombat && enemy.getHealth() > 0 && play.getHealth() > 0)        // repeats while in combat and both enemy and player have above 0 health
     {
         int dam = 0, choice = 0;
 
@@ -30,11 +40,11 @@ void combatOccurence(Player &play)
         cout << "     XP: " << play.getScore() << "\n";
         
         do{
-            cout << "\n   > Attack  \t  > Heal\t > Flee\n";
+            cout << "\n   > Attack  \t  > Heal\t > Flee\n";                 // prompts the player about their combat choice
             cout << "\n What would you like to do (1, 2, 3)?\n\n > ";
             getline(cin, resp);
 
-            if(resp.length() == 1 && isdigit(resp[0]) && stoi(resp) > 0 && stoi(resp) < 4)
+            if(resp.length() == 1 && isdigit(resp[0]) && stoi(resp) > 0 && stoi(resp) < 4)      // input validation (isdigit in range 1 - 3)
             {
                 invalidIn = false;
                 if (resp == "1")
@@ -55,17 +65,17 @@ void combatOccurence(Player &play)
 
         switch(choice) 
         {
-            case 1:
-                if (die(20) >= enemy.getArmorClass())
-                {
+            case 1:     // option 1: attack
+                if (die(20) >= enemy.getArmorClass())       // rolls a random number in range 1 - 20 to see if the player lands an attack by comparing to the enemy armor stat
+                {                                           // if greater than or equal: attack lands
                     system("clear");
-                    dam = play.rollDamage();
-                    enemy.setHealth(enemy.getHealth() - dam);
+                    dam = play.rollDamage();                    // rolls for player damage (calls player.rollDamage)
+                    enemy.setHealth(enemy.getHealth() - dam);   // deals damage to enemy
                 }
                 else
                 {
-                    system("clear");
-                    cout << "\n You swing and miss!\n";
+                    system("clear");                        // else: player failed to land an attack
+                    cout << "\n You swing and miss!\n";     // display miss message
                 }
                     
                 if (die(20) >= play.getArmorClass() && enemy.getHealth() > 0)
@@ -78,7 +88,7 @@ void combatOccurence(Player &play)
                     cout << "\n The " << enemy.getName() << " swung and missed!\n";
                 break;
 
-            case 2:
+            case 2:     // option 2: heal
                 system("clear");
                 play.heal();
                 if (die(20) >= play.getArmorClass() && enemy.getHealth() > 0)
@@ -91,32 +101,32 @@ void combatOccurence(Player &play)
                     cout << "\n The " << enemy.getName() << " swung and missed!\n";
                 break;
 
-            case 3:
+            case 3:     // option 3: flee
                 system("clear");
-                if (die(20) >= 14)
-                    inCombat = false;
+                if (die(20) >= 14)      // rolls a random number in range 1 - 20 to see if the player successfully escapes combat
+                    inCombat = false;   // if greater or equal to 14: escape successfully (exit combat)
                 else
-                {
-                    cout << "\n You failed to escape!\n";
-                    dam = enemy.rollDamage();
-                    play.setHealth(play.getHealth() - dam);
-                    cout << "\n The " << enemy.getName() << " lashes out at you dealing " << dam << " points of damage!\n";
+                {                       // else: you failed to escape
+                    cout << "\n You failed to escape!\n";       // display failed escape
+                    dam = enemy.rollDamage();                   // roll for enemy damage (call enemy.rollDamage())
+                    play.setHealth(play.getHealth() - dam);     // deal damage to player (call player.dealtDamage())
+                    cout << "\n The " << enemy.getName() << " lashes out at you dealing " << dam << " points of damage!\n";     // Display damage dealt message
                 }
                 break;
         }
             
-        if(enemy.getHealth() <= 0)
+        if(enemy.getHealth() <= 0)  // if the enemy has 0 or below 0 health: combat win
         {
             cout << "\n You have defeated the " << enemy.getName() << "!\n";
-            play.addXP(enemy.getXP());
-            inCombat = false;
+            play.addXP(enemy.getXP());          // add enemy xp value to total player score
+            inCombat = false;                   // exit combat
         }
         
-        if(play.getHealth() <= 0) 
+        if(play.getHealth() <= 0)  // if the player has 0 or below 0 health: combat loss / game loss
         {
-            cout << "\n You were defeated in battle!\n";
-            cout << "\n High Score: " << play.getScore() << "\n";
-            inCombat = false;
+            cout << "\n You were defeated in battle!\n";                // display defeat message
+            cout << "\n High Score: " << play.getScore() << "\n";       // display final score
+            inCombat = false;                                           // exit combat
         }
     }
 }
