@@ -1,3 +1,9 @@
+ // Descr: This code holds the funtions that are called whenever the player
+ //        is entered into a combat scenario and that executes the start of
+ //        the game.
+ // Start Date: Nov 10th, 2022
+ // Final Date: Dec 1st, 2022 
+
 #ifndef ENTITY_H
 #define ENTITY_H
 
@@ -147,20 +153,24 @@ public:
         locations[0][2] = Loc("Goblin Camp", 15, 1);
         locations[0][3] = Loc("Clearing", 20, 2); //Ogre
 
+
         locations[1][0] = Loc("Town Square", 0, 3); //Cultists
         locations[1][1] = Loc("Creepy Alley", 17, 3);
         locations[1][2] = Loc("Shopping District", 8, 3);
         locations[1][3] = Loc("Festival Square", 20, 7); //Oracle
+
 
         locations[2][0] = Loc("Portico", 10, 9); //Death Knights
         locations[2][1] = Loc("White Hall", 19, 9);
         locations[2][2] = Loc("Courtyard", 19, 9);
         locations[2][3] = Loc("Throne Room", 20, 10); //Volkarth
 
+
         locations[3][0] = Loc("Town Square", 4, 6); //Displacer Beasts
         locations[3][1] = Loc("Creepy Alley", 17, 6);
         locations[3][2] = Loc("Shopping District", 17, 6);
-        locations[3][3] = Loc("Festival Square", 20, 8); //Stone Giant
+        locations[3][3] = Loc("Market Square", 20, 8); //Stone Giant
+
 
         locations[4][0] = Loc("Base", 10, 4); //Troglodyte
         locations[4][1] = Loc("Cave", 16, 4);
@@ -203,6 +213,9 @@ public:
         int spd;
         
         enemName = "";
+
+        // This switch statement creates different enemy types determined by an enemy id and 
+        // gives every type unique values for health, armor, and experience points to give
 
         switch(enemyID) 
         {   
