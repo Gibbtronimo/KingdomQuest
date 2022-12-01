@@ -190,7 +190,7 @@ int main()
     cout << "\n\n   The king smiles and slowly beckons to you, then begins to explain the unfortunate series";
     cout << "\n of events that unfolded over the course of the last couple hours. Sometime around mid";
     cout << "\n day, the castle was attacked and the kingdom suffered a great loss; the royal guard was";
-    cout << "\n defeated and the king's power was forecfully taken when an evil archmage named Volkarth ";
+    cout << "\n defeated and the king's power was forcefully taken when an evil archmage named Volkarth ";
     cout << "\n attacked and seized control of the castle. ";
 
     cout << "\n\n   The guards fought valiantly but could not defeat Volkarth and his magic. Having";
